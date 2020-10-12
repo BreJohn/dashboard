@@ -1,0 +1,35 @@
+<form class="form" [formGroup]="loginForm" (submit)="login()">
+  <mat-form-field class="full-width">
+    <mat-label>Username</mat-label>
+    <input
+      matInput
+      placeholder="Username"
+      [errorStateMatcher]="matcher"
+      formControlName="username"
+      #username
+    />
+    <mat-error *ngIf="loginForm.get('username').hasError('required')">
+      Username is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input
+      matInput
+      type="password"
+      placeholder="Password"
+      [errorStateMatcher]="matcher"
+      formControlName="password"
+      #password
+    />
+    <mat-error *ngIf="loginForm.get('password').hasError('required')">
+      Password is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="accent" type="submit">Login</button>
+  <mat-error *ngIf="loginForm.get('username').hasError('auth')">
+    The username you entered does not exist
+  </mat-error>
+  <mat-error *ngIf="loginForm.get('password').hasError('auth')">
+    The password you entered is invalid
+  </mat-error>
+</form>
