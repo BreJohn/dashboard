@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { State, Store } from '@ngrx/store';
-import { Observable, Subscribable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 import { MyErrorStateMatcher } from '../../lib/MyErrorStateMatcher';
-import { User } from '../../model/User';
+import { AppUser } from '../../model/AppUser';
 import { LoginService } from '../../services/login.service';
+import * as fromApp from '../../store/app.reducer';
+import * as fromAuth from '../../store/auth/auth.reducer';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +16,12 @@ import { LoginService } from '../../services/login.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  users: Observable<{ users: User[] }>;
+  users: Observable<fromAuth.State>;
   subscription = new Subscription();
   constructor(
     private loginService: LoginService,
     private fb: FormBuilder,
-    private store: Store<{ auth: { users: User[] } }>,
+    private store: Store<fromApp.AppState>,
     private router: Router
   ) {}
 
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  checkForLoginErrors(user: User): void {
+  checkForLoginErrors(user: AppUser): void {
     const { username, password } = this.loginForm.controls;
     if (user.isAuthenticated) {
       this.router.navigateByUrl('/home');
@@ -59,7 +61,7 @@ export class LoginComponent implements OnInit {
     this.users = this.store.select('auth');
     this.subscription.add(
       this.users.subscribe((state) => {
-        this.checkForLoginErrors(state.users[0]);
+        this.checkForLoginErrors(state.appUsers[0]);
       })
     );
   }

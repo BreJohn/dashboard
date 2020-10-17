@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { User } from '../model/User';
-import { Login } from '../store/auth.actions';
+import { AppUser } from '../model/AppUser';
+import { Login } from '../store/auth/auth.actions';
+import * as fromApp from '../store/app.reducer';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(private store: Store<{ auth: { users: User[] } }>) {}
+  constructor(private store: Store<fromApp.AppState>) {}
 
   login(username: string, password: string) {
-    const user = new User(username, password);
+    const user = new AppUser(username, password);
     this.store.dispatch(new Login(user));
   }
 }

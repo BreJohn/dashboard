@@ -1,0 +1,6 @@
+<div class="calendar" *ngIf="!hidden">
+  <mat-calendar #calendar [(selected)]="selectedDate"> </mat-calendar>
+</div>
+<button mat-raised-button color="accent" (click)="toggleCal()">
+  {{ btnLabel }}
+</button>

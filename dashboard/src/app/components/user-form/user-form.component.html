@@ -1,0 +1,31 @@
+<div class="form user-form">
+  <form [formGroup]="userForm" #form>
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="FirstName" required />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="LastName" required />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="PhoneNumber" required />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="Email" email required />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      [disabled]="!userForm.valid"
+      (click)="submitUser()"
+    >
+      Add User
+    </button>
+  </form>
+</div>

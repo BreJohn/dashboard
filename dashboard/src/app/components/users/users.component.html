@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="table-container">
+    <table
+      mat-table
+      cdkDropList
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListData]="users"
+      [dataSource]="users"
+      #table
+    >
+      <ng-container matColumnDef="FirstName">
+        <th mat-header-cell *matHeaderCellDef>First Name</th>
+        <td mat-cell *matCellDef="let user">{{ user.FirstName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="LastName">
+        <th mat-header-cell *matHeaderCellDef>Last Name</th>
+        <td mat-cell *matCellDef="let user">{{ user.LastName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="PhoneNumber">
+        <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+        <td mat-cell *matCellDef="let user">{{ user.PhoneNumber }}</td>
+      </ng-container>
+      <ng-container matColumnDef="Email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.Email }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="userHeaders"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: userHeaders"
+        cdkDragLockAxis="y"
+        cdkDrag
+        [cdkDragData]="row"
+      ></tr>
+    </table>
+  </div>
+</div>
